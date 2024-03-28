@@ -26,7 +26,24 @@ export function getPageHtml(page: Page, selector = "body") {
     } else {
       // Handle as a CSS selector
       const el = document.querySelector(selector) as HTMLElement | null;
-      return el?.innerText || "";
+      if (!el) return "";
+      // Remove all "nav" element
+      const navElements = el.querySelectorAll("nav");
+      if (navElements) {
+        navElements.forEach((navEl) => {
+          navEl.remove();
+        });
+      }
+
+      // Remove all "breadcrumbs"
+      const breadcrumbEls = el.querySelectorAll(".breadcrumbs");
+      if (breadcrumbEls) {
+        breadcrumbEls.forEach((breadcrumbEl) => {
+          breadcrumbEl.remove();
+        });
+      }
+
+      return el.innerText;
     }
   }, selector);
 }
@@ -158,7 +175,7 @@ export async function crawl(config: Config) {
 export async function write(config: Config) {
   let nextFileNameString: PathLike = "";
   const jsonFiles = await glob("storage/datasets/default/*.json", {
-    absolute: true,
+    absolute: true
   });
 
   console.log(`Found ${jsonFiles.length} files to combine...`);

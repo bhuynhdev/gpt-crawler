@@ -1,9 +1,10 @@
 import { Config } from "./src/config";
 
 export const defaultConfig: Config = {
-  url: "https://www.builder.io/c/docs/developers",
-  match: "https://www.builder.io/c/docs/**",
-  maxPagesToCrawl: 50,
-  outputFileName: "output.json",
-  maxTokens: 2000000,
+  url: "https://ceas.uc.edu",
+  match: "https://ceas.uc.edu/**/*.html",
+  maxPagesToCrawl: 2000,
+  selector: "#content",
+  outputFileName: "output-ceas.json",
+  collegeName: "University of Cincinnati"
 };
